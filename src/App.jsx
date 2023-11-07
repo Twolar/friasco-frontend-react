@@ -4,6 +4,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Routes, Route } from "react-router";
 import Sidebar from "./scenes/global/SideBar";
 import Dashboard from "./scenes/dashboard";
+import Login from "./scenes/login";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -18,7 +19,7 @@ function App() {
             <Topbar />
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/users" element={<Dashboard />} />
+              <Route path="/login" element={<Login />} />
             </Routes>
           </main>
         </div>
