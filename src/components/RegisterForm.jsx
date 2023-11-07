@@ -8,7 +8,7 @@ import AuthContext from "../context/AuthProvider";
 import axios from "../api/axios";
 const REGISTER_URL = "/register";
 
-const CreateUserForm = () => {
+const RegisterForm = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const isNonMobile = useMediaQuery("(min-width:600px)");
