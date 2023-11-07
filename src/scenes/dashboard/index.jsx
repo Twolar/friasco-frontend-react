@@ -8,10 +8,6 @@ const Dashboard = () => {
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="DASHBOARD" subtitle="Welcome to the dashboard!"></Header>
       </Box>
-
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Login />
-      </Box>
     </Box>
   );
 };
