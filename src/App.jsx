@@ -18,8 +18,12 @@ function App() {
           <main className="content">
             <Topbar />
             <Routes>
+              {/* Public Routes */}
               <Route path="/" element={<Dashboard />} />
               <Route path="/login" element={<Login />} />
+            
+              {/* Private Routes */}
+              
             </Routes>
           </main>
         </div>
