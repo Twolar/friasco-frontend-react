@@ -12,13 +12,14 @@ const RegisterForm = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const isNonMobile = useMediaQuery("(min-width:600px)");
-  const errRef = useRef();
+
   const { setAuth } = useContext(AuthContext);
+  const errRef = useRef();
 
-  const [errMessage, setErrMessage] = useState("");
-  const [success, setSuccess] = useState(false);
+  const [errMessage, setErrMessage] = useState(""); // TODO: change the messaging (snackbar?)
+  const [success, setSuccess] = useState(false); // TODO: Temporary for test purposes...
 
-  const handleFormSubmit = async (formData, { resetForm }) => {
+  const handleFormSubmit = async (formData) => {
     try {
       const response = await axios.post(
         REGISTER_URL,
