@@ -18,14 +18,13 @@ const LoginForm = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const isNonMobile = useMediaQuery("(min-width:600px)");
+
   const { setAuth } = useContext(AuthContext);
   const userRef = useRef();
   const errRef = useRef();
 
-  const [userEmail, setUserEmail] = useState("user@example.com");
-  const [userPassword, setUserPassword] = useState("string");
-  const [errMessage, setErrMessage] = useState("");
-  const [success, setSuccess] = useState(false);
+  const [errMessage, setErrMessage] = useState(""); // TODO: change the messaging (snackbar?)
+  const [success, setSuccess] = useState(false); // TODO: Temporary for test purposes...
 
   useEffect(() => {
     userRef.current.focus();
@@ -53,8 +52,6 @@ const LoginForm = () => {
         password: formData.password,
         token: response.data.token,
       });
-      setUserEmail(formData.email);
-      setUserPassword(formData.password);
       setSuccess(true);
     } catch (error) {
       if (!error?.response) {
