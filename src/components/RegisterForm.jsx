@@ -44,7 +44,6 @@ const RegisterForm = () => {
       });
       setSuccess(true);
     } catch (error) {
-      console.log(response);
       if (!error?.response) {
         setErrMessage("No Server Response");
       } else if (error?.response?.status === 400) {
