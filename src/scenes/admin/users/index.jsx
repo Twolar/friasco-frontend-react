@@ -42,7 +42,7 @@ const Users = () => {
 
       <Box display="flex">
         <article>
-          <h2>Users List</h2>
+          <h2>List</h2>
           {users?.length ? (
             <ul>
               {users.map((user, i) => (
