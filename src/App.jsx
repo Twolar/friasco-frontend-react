@@ -5,6 +5,10 @@ import { Routes, Route } from "react-router";
 import Sidebar from "./scenes/global/SideBar";
 import Dashboard from "./scenes/dashboard";
 import Login from "./scenes/login";
+import Unauthorized from "./scenes/unauthorized"
+import Users from "./scenes/admin/users";
+import RequireAuth from "./components/RequireAuth";
+import { UserRoleEnum } from "./helpers/enums";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -21,8 +25,12 @@ function App() {
               {/* Public Routes */}
               <Route path="/" element={<Dashboard />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/unauthorized" element={<Unauthorized />} />
             
               {/* Private Routes */}
+              <Route element={ <RequireAuth allowedRoles={[ UserRoleEnum.SuperAdmin ]} /> }>
+                <Route path="/admin/users" element={<Users />} />
+              </Route>
               
             </Routes>
           </main>
