@@ -7,8 +7,9 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
+import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
+import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
 import useAuth from "../../hooks/useAuth";
-import { UserRoleEnum } from "../../helpers/enums";
 import {
   AuthenticatedRolesArray,
   AdminRolesArray,
@@ -132,14 +133,14 @@ const SideBar = () => {
             <Item
               title="Login"
               to="/login"
-              icon={<HomeOutlinedIcon />}
+              icon={<LoginOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Register"
               to="/register"
-              icon={<HomeOutlinedIcon />}
+              icon={<PersonAddOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
