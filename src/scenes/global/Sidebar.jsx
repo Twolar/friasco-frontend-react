@@ -9,6 +9,11 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import useAuth from "../../hooks/useAuth";
 import { UserRoleEnum } from "../../helpers/enums";
+import {
+  AuthenticatedRolesArray,
+  AdminRolesArray,
+  SuperAdminRolesArray,
+} from "../../helpers/userRoleArrays";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -117,19 +122,12 @@ const SideBar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
-              title="My Profile"
-              to="/form"
-              icon={<PersonOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
             <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Temporary
+              Temporary Login
             </Typography>
             <Item
               title="Login"
@@ -138,8 +136,57 @@ const SideBar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+            <Item
+              title="Register"
+              to="/register"
+              icon={<HomeOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
 
-            {auth?.email && auth?.role === UserRoleEnum.SuperAdmin ? (
+            {auth?.email && AuthenticatedRolesArray.includes(auth?.role) ? (
+              <>
+                <Typography
+                  variant="h6"
+                  color={colors.grey[300]}
+                  sx={{ m: "15px 0 5px 20px" }}
+                >
+                  User Temporary
+                </Typography>
+                <Item
+                  title="My Profile"
+                  to="/profile"
+                  icon={<PersonOutlineOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+              </>
+            ) : (
+              <></>
+            )}
+
+            {auth?.email && AdminRolesArray.includes(auth?.role) ? (
+              <>
+                <Typography
+                  variant="h6"
+                  color={colors.grey[300]}
+                  sx={{ m: "15px 0 5px 20px" }}
+                >
+                  Admin Temporary
+                </Typography>
+                <Item
+                  title="AdminTemp"
+                  to="/AdminTemp"
+                  icon={<PersonOutlineOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+              </>
+            ) : (
+              <></>
+            )}
+
+            {auth?.email && SuperAdminRolesArray.includes(auth?.role) ? (
               <>
                 <Typography
                   variant="h6"
