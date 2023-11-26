@@ -13,7 +13,7 @@ import { tokens } from "../theme";
 import axios from "../api/axios";
 import { decodeToken } from "react-jwt";
 import useAuth from "../hooks/useAuth";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const LOGIN_URL = "/auth/login";
 
@@ -54,7 +54,7 @@ const LoginForm = () => {
         }
       );
 
-      var tokenClaims = decodeToken(response.data.token);
+      var tokenClaims = decodeToken(response?.data?.token);
 
       setAuth({
         email: formData.email,
@@ -70,7 +70,7 @@ const LoginForm = () => {
         setErrMessage(error?.response?.data?.Errors?.Exception[0]);
       } else if (error?.response?.status === 401) {
         setErrMessage(
-          error?.response?.data?.Errors?.Exception[0] + "Unauthorized"
+          error?.response?.data?.Errors?.Exception[0] + " - Unauthorized"
         );
       } else {
         setErrMessage("Login Failed");

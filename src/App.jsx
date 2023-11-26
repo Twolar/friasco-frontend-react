@@ -5,10 +5,16 @@ import { Routes, Route } from "react-router";
 import Sidebar from "./scenes/global/SideBar";
 import Dashboard from "./scenes/dashboard";
 import Login from "./scenes/login";
-import Unauthorized from "./scenes/unauthorized"
+import Register from "./scenes/register";
+import Unauthorized from "./scenes/unauthorized";
 import Users from "./scenes/admin/users";
 import RequireAuth from "./components/RequireAuth";
-import { UserRoleEnum } from "./helpers/enums";
+import Profile from "./scenes/profile";
+import {
+  AuthenticatedRolesArray,
+  AdminRolesArray,
+  SuperAdminRolesArray,
+} from "./helpers/userRoleArrays";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -25,13 +31,27 @@ function App() {
               {/* Public Routes */}
               <Route path="/" element={<Dashboard />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
               <Route path="/unauthorized" element={<Unauthorized />} />
-            
-              {/* Private Routes */}
-              <Route element={ <RequireAuth allowedRoles={[ UserRoleEnum.SuperAdmin ]} /> }>
+
+              {/* Private User Routes */}
+              <Route
+                element={<RequireAuth allowedRoles={AuthenticatedRolesArray} />}
+              >
+                <Route path="/profile" element={<Profile />} />
+              </Route>
+
+              {/* Private Admin Routes */}
+              <Route element={<RequireAuth allowedRoles={AdminRolesArray} />}>
+                <Route path="/profile" element={<Profile />} />
+              </Route>
+
+              {/* Private SuperAdmin Routes */}
+              <Route
+                element={<RequireAuth allowedRoles={SuperAdminRolesArray} />}
+              >
                 <Route path="/admin/users" element={<Users />} />
               </Route>
-              
             </Routes>
           </main>
         </div>
