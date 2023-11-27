@@ -6,8 +6,9 @@ import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import ModeNightOutlinedIcon from "@mui/icons-material/ModeNightOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { AuthenticatedRolesArray } from "../../helpers/userRoleArrays";
@@ -38,7 +39,12 @@ const Topbar = () => {
         </Box>
       ) : (
         <>
-          <Typography variant="h3" color={colors.grey[100]}>
+          <Typography
+            variant="h3"
+            color={colors.grey[100]}
+            onClick={() => navigate("/", { replace: true })}
+            style={{ cursor: "pointer" }}
+          >
             Friasco
           </Typography>
         </>
@@ -62,13 +68,17 @@ const Topbar = () => {
             <IconButton>
               <SettingsOutlinedIcon />
             </IconButton>
+            <IconButton>
+              <LogoutOutlinedIcon />
+            </IconButton>
           </>
         ) : (
-          <></>
+          <>
+            <IconButton onClick={() => navigate("/login", { replace: true })}>
+              <LoginOutlinedIcon />
+            </IconButton>
+          </>
         )}
-        <IconButton onClick={() => navigate("/login", { replace: true })}>
-          <PersonOutlinedIcon />
-        </IconButton>
       </Box>
     </Box>
   );
