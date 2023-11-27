@@ -21,7 +21,7 @@ const RegisterForm = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/dashboard";
 
   const [errMessage, setErrMessage] = useState(""); // TODO: change the messaging (snackbar?)
 

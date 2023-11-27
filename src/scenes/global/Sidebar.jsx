@@ -7,8 +7,8 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
-import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
-import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
+import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
+import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
 import useAuth from "../../hooks/useAuth";
 import {
   AuthenticatedRolesArray,
@@ -118,7 +118,7 @@ const SideBar = () => {
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboard"
-              to="/"
+              to="/dashboard"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
