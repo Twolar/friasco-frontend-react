@@ -15,21 +15,27 @@ import {
   AdminRolesArray,
   SuperAdminRolesArray,
 } from "./helpers/userRoleArrays";
+import useAuth from "./hooks/useAuth";
+import Landing from "./scenes/landing";
 
 function App() {
   const [theme, colorMode] = useMode();
+  const { auth } = useAuth();
+
+  const isLoggedIn =
+    auth?.email && AuthenticatedRolesArray.includes(auth?.role);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          <Sidebar />
+          {isLoggedIn ? <Sidebar /> : <></>}
           <main className="content">
             <Topbar />
             <Routes>
               {/* Public Routes */}
-              <Route path="/" element={<Dashboard />} />
+              <Route path="/" element={<Landing />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/unauthorized" element={<Unauthorized />} />
@@ -38,13 +44,14 @@ function App() {
               <Route
                 element={<RequireAuth allowedRoles={AuthenticatedRolesArray} />}
               >
+                <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/profile" element={<Profile />} />
               </Route>
 
               {/* Private Admin Routes */}
-              <Route element={<RequireAuth allowedRoles={AdminRolesArray} />}>
-                <Route path="/profile" element={<Profile />} />
-              </Route>
+              <Route
+                element={<RequireAuth allowedRoles={AdminRolesArray} />}
+              ></Route>
 
               {/* Private SuperAdmin Routes */}
               <Route
