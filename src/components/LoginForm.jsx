@@ -153,7 +153,10 @@ const LoginForm = () => {
                   helperText={touched.password && errors.password}
                   sx={{ gridColumn: "span 4" }}
                 />
-                <div className="persistCheck">
+                <div
+                  className="persistCheck"
+                  style={{ display: "flex", alignItems: "center" }}
+                >
                   <input
                     type="checkbox"
                     id="persist"
