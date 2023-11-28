@@ -5,7 +5,10 @@ import { useNavigate } from "react-router-dom";
 const Unauthorized = () => {
   const navigate = useNavigate();
 
-  const goBack = () => navigate(-1);
+  const goBack = (e) => {
+    e.preventDefault();
+    navigate(-1);
+  }
 
   return (
     <Box m="0px 20px">
