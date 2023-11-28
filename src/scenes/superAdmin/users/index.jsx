@@ -37,7 +37,10 @@ const Users = () => {
   return (
     <Box m="0px 20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="USERS" subtitle="Welcome to user management!"></Header>
+        <Header
+          title="SuperAdmin USERS"
+          subtitle="Welcome to user management!"
+        ></Header>
       </Box>
 
       <Box display="flex">

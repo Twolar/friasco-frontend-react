@@ -51,10 +51,13 @@ const RegisterForm = () => {
       var tokenClaims = decodeToken(response?.data?.token);
 
       setAuth({
-        email: formData.email,
-        password: formData.password,
-        token: response.data.token,
+        id: tokenClaims.nameid,
+        firstName: tokenClaims.given_name,
+        lastName: tokenClaims.family_name,
+        username: tokenClaims.unique_name,
+        email: tokenClaims.email,
         role: tokenClaims.role,
+        token: response.data.token,
       });
       navigate(from, { replace: true });
     } catch (error) {
