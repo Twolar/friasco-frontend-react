@@ -16,21 +16,19 @@ import {
   SuperAdminRolesArray,
 } from "./helpers/userRoleArrays";
 import useAuth from "./hooks/useAuth";
+import PersistLogin from "./components/persistLogin";
 import Landing from "./scenes/landing";
 
 function App() {
   const [theme, colorMode] = useMode();
   const { auth } = useAuth();
 
-  const isLoggedIn =
-    auth?.email && AuthenticatedRolesArray.includes(auth?.role);
-
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          {isLoggedIn ? <Sidebar /> : <></>}
+          {auth?.email ? <Sidebar /> : <></>}
           <main className="content">
             <Topbar />
             <Routes>
@@ -40,24 +38,28 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/unauthorized" element={<Unauthorized />} />
 
-              {/* Private User Routes */}
-              <Route
-                element={<RequireAuth allowedRoles={AuthenticatedRolesArray} />}
-              >
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/profile" element={<Profile />} />
-              </Route>
+              <Route element={<PersistLogin />}>
+                {/* Private User Routes */}
+                <Route
+                  element={
+                    <RequireAuth allowedRoles={AuthenticatedRolesArray} />
+                  }
+                >
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/profile" element={<Profile />} />
+                </Route>
 
-              {/* Private Admin Routes */}
-              <Route
-                element={<RequireAuth allowedRoles={AdminRolesArray} />}
-              ></Route>
+                {/* Private Admin Routes */}
+                <Route
+                  element={<RequireAuth allowedRoles={AdminRolesArray} />}
+                ></Route>
 
-              {/* Private SuperAdmin Routes */}
-              <Route
-                element={<RequireAuth allowedRoles={SuperAdminRolesArray} />}
-              >
-                <Route path="/admin/users" element={<Users />} />
+                {/* Private SuperAdmin Routes */}
+                <Route
+                  element={<RequireAuth allowedRoles={SuperAdminRolesArray} />}
+                >
+                  <Route path="/admin/users" element={<Users />} />
+                </Route>
               </Route>
             </Routes>
           </main>

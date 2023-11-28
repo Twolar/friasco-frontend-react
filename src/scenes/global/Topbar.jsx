@@ -12,6 +12,7 @@ import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { AuthenticatedRolesArray } from "../../helpers/userRoleArrays";
+import useLogout from "../../hooks/useLogout";
 
 const Topbar = () => {
   const theme = useTheme();
@@ -19,6 +20,12 @@ const Topbar = () => {
   const colorMode = useContext(ColorModeContext);
   const { auth } = useAuth();
   const navigate = useNavigate();
+  const logout = useLogout();
+
+  const signOut = async () => {
+    await logout();
+    navigate("/login");
+  };
 
   const isLoggedIn =
     auth?.email && AuthenticatedRolesArray.includes(auth?.role);
@@ -68,7 +75,7 @@ const Topbar = () => {
             <IconButton>
               <SettingsOutlinedIcon />
             </IconButton>
-            <IconButton>
+            <IconButton onClick={signOut}>
               <LogoutOutlinedIcon />
             </IconButton>
           </>
