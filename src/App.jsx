@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router";
 import SideBar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
 import Unauthorized from "./scenes/unauthorized";
-import SuperAdminUsers from "./scenes/admin/users";
+import UserManagement from "./scenes/admin/userManagment";
 import RequireAuth from "./components/RequireAuth";
 import Profile from "./scenes/profile";
 import Missing from "./scenes/missing";
@@ -18,6 +18,7 @@ import useAuth from "./hooks/useAuth";
 import PersistLogin from "./components/persistLogin";
 import Landing from "./scenes/landing";
 import Login from "./scenes/login";
+import Settings from "./scenes/settings";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -47,6 +48,7 @@ function App() {
                   {/* User and above only routes go here */}
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/profile" element={<Profile />} />
+                  <Route path="/settings" element={<Settings />} />
                 </Route>
 
                 {/* Private Admin Routes */}
@@ -60,8 +62,8 @@ function App() {
                 >
                   {/* SuperAdmin only routes go here */}
                   <Route
-                    path="/admin/users"
-                    element={<SuperAdminUsers />}
+                    path="/admin/user-management"
+                    element={<UserManagement />}
                   />
                 </Route>
 

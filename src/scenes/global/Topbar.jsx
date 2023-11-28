@@ -67,12 +67,11 @@ const Topbar = () => {
           )}
         </IconButton>
         {isLoggedIn ? (
-          // SEARCH BAR
           <>
             <IconButton>
               <NotificationsOutlinedIcon />
             </IconButton>
-            <IconButton>
+            <IconButton onClick={() => navigate("/settings", { replace: true })}>
               <SettingsOutlinedIcon />
             </IconButton>
             <IconButton onClick={signOut}>
