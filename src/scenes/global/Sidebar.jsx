@@ -163,8 +163,8 @@ const SideBar = () => {
                 {auth?.email && SuperAdminRolesArray.includes(auth?.role) && (
                   // SuperAdmin only menu items go here
                   <Item
-                    title="SuperAdminUsers"
-                    to="/superAdmin/users"
+                    title="User Management"
+                    to="/admin/user-management"
                     icon={<PeopleOutlinedIcon />}
                     selected={selected}
                     setSelected={setSelected}

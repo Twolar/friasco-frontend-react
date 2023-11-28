@@ -38,8 +38,8 @@ const Users = () => {
     <Box m="0px 20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header
-          title="SuperAdmin USERS"
-          subtitle="Welcome to user management!"
+          title="USER MANAGEMENT"
+          subtitle=""
         ></Header>
       </Box>
 
