@@ -94,6 +94,7 @@ const RegisterForm = () => {
             ref={errRef}
             className={errMessage ? "errorMessage" : "hidden"}
             aria-live="assertive"
+            color={colors.redAccent[300]}
           >
             {errMessage}
           </Typography>
