@@ -198,7 +198,10 @@ const RegisterForm = () => {
                   helperText={touched.confirmPassword && errors.confirmPassword}
                   sx={{ gridColumn: "span 2" }}
                 />
-                <div className="persistCheck">
+                <div
+                  className="persistCheck"
+                  style={{ display: "flex", alignItems: "center" }}
+                >
                   <input
                     type="checkbox"
                     id="persist"
