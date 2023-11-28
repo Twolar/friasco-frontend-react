@@ -13,10 +13,6 @@ const useRefreshToken = () => {
     setAuth((prev) => {
       var tokenClaims = decodeToken(response?.data?.token);
 
-      console.log(JSON.stringify(prev));
-      console.log("New Token: " + response.data.token);
-      console.log(JSON.stringify(tokenClaims));
-
       return {
         ...prev,
         email: tokenClaims.unique_name,

@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   TextField,
-  Checkbox,
   useMediaQuery,
   Typography,
   useTheme,
@@ -166,7 +165,7 @@ const LoginForm = () => {
               </Box>
               <Box display="flex" justifyContent="end" mt="20px">
                 <Button type="submit" color="secondary" variant="contained">
-                  SUBMIT
+                  SIGN IN
                 </Button>
               </Box>
             </form>
