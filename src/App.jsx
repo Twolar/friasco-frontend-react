@@ -18,7 +18,7 @@ import useAuth from "./hooks/useAuth";
 import PersistLogin from "./components/persistLogin";
 import Landing from "./scenes/landing";
 import Login from "./scenes/login";
-import Settings from "./scenes/settings";
+import Settings from "./scenes/userSettings";
 
 function App() {
   const [theme, colorMode] = useMode();
