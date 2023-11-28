@@ -98,17 +98,25 @@ const SideBar = () => {
                 />
               </Box>
               <Box textAlign="center">
-                <Typography
-                  variant="h2"
-                  color={colors.grey[100]}
-                  fontWeight="bold"
-                  sx={{ m: "10px 0 0 0" }}
-                >
-                  Taylor B
-                </Typography>
-                <Typography variant="h5" color={colors.greenAccent[500]}>
-                  Administrator
-                </Typography>
+                <Box>
+                  <Typography
+                    variant="h4"
+                    color={colors.grey[100]}
+                    sx={{ m: "10px 0 0 0" }}
+                  >
+                    {auth?.firstName}
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography variant="h7" color={colors.greenAccent[500]}>
+                    {auth?.username && <>@{auth?.username}</>}
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography variant="h8" color={colors.grey[300]}>
+                    {auth?.role}
+                  </Typography>
+                </Box>
               </Box>
             </Box>
           )}
@@ -122,14 +130,14 @@ const SideBar = () => {
               setSelected={setSelected}
             />
 
-            {auth?.email && AuthenticatedRolesArray.includes(auth?.role) ? (
+            {auth?.email && AuthenticatedRolesArray.includes(auth?.role) && (
               <>
                 <Typography
                   variant="h6"
                   color={colors.grey[300]}
                   sx={{ m: "15px 0 5px 20px" }}
                 >
-                  User Temporary
+                  User
                 </Typography>
                 <Item
                   title="My Profile"
@@ -139,32 +147,9 @@ const SideBar = () => {
                   setSelected={setSelected}
                 />
               </>
-            ) : (
-              <></>
             )}
 
-            {auth?.email && AdminRolesArray.includes(auth?.role) ? (
-              <>
-                <Typography
-                  variant="h6"
-                  color={colors.grey[300]}
-                  sx={{ m: "15px 0 5px 20px" }}
-                >
-                  Admin Temporary
-                </Typography>
-                <Item
-                  title="AdminTemp"
-                  to="/AdminTemp"
-                  icon={<PersonOutlineOutlinedIcon />}
-                  selected={selected}
-                  setSelected={setSelected}
-                />
-              </>
-            ) : (
-              <></>
-            )}
-
-            {auth?.email && SuperAdminRolesArray.includes(auth?.role) ? (
+            {auth?.email && AdminRolesArray.includes(auth?.role) && (
               <>
                 <Typography
                   variant="h6"
@@ -174,15 +159,22 @@ const SideBar = () => {
                   Admin
                 </Typography>
                 <Item
-                  title="Users"
+                  title="AdminUsers"
                   to="/admin/users"
                   icon={<PeopleOutlinedIcon />}
                   selected={selected}
                   setSelected={setSelected}
                 />
+                {auth?.email && SuperAdminRolesArray.includes(auth?.role) && (
+                  <Item
+                    title="SuperAdminUsers"
+                    to="/superAdmin/users"
+                    icon={<PeopleOutlinedIcon />}
+                    selected={selected}
+                    setSelected={setSelected}
+                  />
+                )}
               </>
-            ) : (
-              <></>
             )}
           </Box>
         </Menu>

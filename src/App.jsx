@@ -5,7 +5,8 @@ import { Routes, Route } from "react-router";
 import SideBar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
 import Unauthorized from "./scenes/unauthorized";
-import Users from "./scenes/admin/users";
+import AdminUsers from "./scenes/admin/adminTemp";
+import SuperAdminUsers from "./scenes/superAdmin/users";
 import RequireAuth from "./components/RequireAuth";
 import Profile from "./scenes/profile";
 import Missing from "./scenes/missing";
@@ -49,15 +50,18 @@ function App() {
                 </Route>
 
                 {/* Private Admin Routes */}
-                <Route
-                  element={<RequireAuth allowedRoles={AdminRolesArray} />}
-                ></Route>
+                <Route element={<RequireAuth allowedRoles={AdminRolesArray} />}>
+                  <Route path="/admin/users" element={<AdminUsers />} />
+                </Route>
 
                 {/* Private SuperAdmin Routes */}
                 <Route
                   element={<RequireAuth allowedRoles={SuperAdminRolesArray} />}
                 >
-                  <Route path="/admin/users" element={<Users />} />
+                  <Route
+                    path="/superadmin/users"
+                    element={<SuperAdminUsers />}
+                  />
                 </Route>
 
                 {/* 404 */}
