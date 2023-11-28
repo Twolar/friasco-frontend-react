@@ -16,7 +16,7 @@ const RegisterForm = () => {
   const colors = tokens(theme.palette.mode);
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  const { setAuth } = useAuth();
+  const { setAuth, persist, setPersist } = useAuth();
   const errRef = useRef();
 
   const navigate = useNavigate();
@@ -73,6 +73,14 @@ const RegisterForm = () => {
       errRef.current.focus();
     }
   };
+
+  const togglePersist = () => {
+    setPersist((prev) => !prev);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("persist", persist);
+  }, [persist]);
 
   return (
     <Box width="100%">
@@ -190,10 +198,19 @@ const RegisterForm = () => {
                   helperText={touched.confirmPassword && errors.confirmPassword}
                   sx={{ gridColumn: "span 2" }}
                 />
+                <div className="persistCheck">
+                  <input
+                    type="checkbox"
+                    id="persist"
+                    onChange={togglePersist}
+                    checked={persist}
+                  />
+                  <label htmlFor="persist">Trust this device?</label>
+                </div>
               </Box>
               <Box display="flex" justifyContent="end" mt="20px">
                 <Button type="submit" color="secondary" variant="contained">
-                  SUBMIT
+                  REGISTER
                 </Button>
               </Box>
             </form>

@@ -7,8 +7,6 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
-import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
-import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
 import useAuth from "../../hooks/useAuth";
 import {
   AuthenticatedRolesArray,
@@ -120,27 +118,6 @@ const SideBar = () => {
               title="Dashboard"
               to="/dashboard"
               icon={<HomeOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Temporary Login
-            </Typography>
-            <Item
-              title="Login"
-              to="/login"
-              icon={<LoginOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Register"
-              to="/register"
-              icon={<PersonAddOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />

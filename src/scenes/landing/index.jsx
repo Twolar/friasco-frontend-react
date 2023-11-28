@@ -1,7 +1,5 @@
 import { Box } from "@mui/material";
 import Header from "../../components/Header";
-import LoginForm from "../../components/LoginForm";
-import RegisterForm from "../../components/RegisterForm";
 
 const Landing = () => {
   return (
@@ -10,11 +8,9 @@ const Landing = () => {
         <Header title="Welcome" subtitle="Welcome to Frisaco"></Header>
       </Box>
 
-      <Header title="LOGIN" subtitle="Welcome to the ReactWebApp!"></Header>
-      <LoginForm />
-
-      <Header title="REGISTER" subtitle="Welcome to the ReactWebApp!"></Header>
-      <RegisterForm />
+      <Box>
+        <p>This is the landing page, more content to come here soon...</p>
+      </Box>
     </Box>
   );
 };
