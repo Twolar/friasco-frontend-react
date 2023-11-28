@@ -1,5 +1,6 @@
 import axios from "../api/axios";
 import useAuth from "./useAuth";
+import { decodeToken } from "react-jwt";
 
 const useRefreshToken = () => {
   const { auth, setAuth } = useAuth();
@@ -10,9 +11,18 @@ const useRefreshToken = () => {
       withCredentials: true,
     });
     setAuth((prev) => {
-      console.log("Prev: " + prev.token);
+      var tokenClaims = decodeToken(response?.data?.token);
+
+      console.log(JSON.stringify(prev));
       console.log("New Token: " + response.data.token);
-      return { ...prev, token: response.data.token };
+      console.log(JSON.stringify(tokenClaims));
+
+      return {
+        ...prev,
+        email: tokenClaims.unique_name,
+        role: tokenClaims.role,
+        token: response.data.token,
+      };
     });
     return response.data.token;
   };
