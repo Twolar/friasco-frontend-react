@@ -131,6 +131,7 @@ const SideBar = () => {
             />
 
             {auth?.email && AuthenticatedRolesArray.includes(auth?.role) && (
+              // User only menu items go here
               <>
                 <Typography
                   variant="h6"
@@ -158,14 +159,9 @@ const SideBar = () => {
                 >
                   Admin
                 </Typography>
-                <Item
-                  title="AdminUsers"
-                  to="/admin/users"
-                  icon={<PeopleOutlinedIcon />}
-                  selected={selected}
-                  setSelected={setSelected}
-                />
+                {/* Admin and above only menu items go here */}
                 {auth?.email && SuperAdminRolesArray.includes(auth?.role) && (
+                  // SuperAdmin only menu items go here
                   <Item
                     title="SuperAdminUsers"
                     to="/superAdmin/users"
