@@ -14,8 +14,7 @@ import axios from "../api/axios";
 import { decodeToken } from "react-jwt";
 import useAuth from "../hooks/useAuth";
 import { useNavigate, useLocation } from "react-router-dom";
-
-const LOGIN_URL = "/auth/login";
+import { ApiUrlEnum } from "../helpers/enums";
 
 const LoginForm = () => {
   const theme = useTheme();
@@ -43,7 +42,7 @@ const LoginForm = () => {
   const handleFormSubmit = async (formData, { resetForm }) => {
     try {
       const response = await axios.post(
-        LOGIN_URL,
+        ApiUrlEnum.AuthLogin,
         JSON.stringify({
           Email: formData.email,
           Password: formData.password,

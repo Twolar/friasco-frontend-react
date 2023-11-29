@@ -8,8 +8,7 @@ import axios from "../api/axios";
 import useAuth from "../hooks/useAuth";
 import { decodeToken } from "react-jwt";
 import { useNavigate, useLocation } from "react-router-dom";
-
-const REGISTER_URL = "/auth/register";
+import { ApiUrlEnum } from "../helpers/enums";
 
 const RegisterForm = () => {
   const theme = useTheme();
@@ -32,7 +31,7 @@ const RegisterForm = () => {
   const handleFormSubmit = async (formData) => {
     try {
       const response = await axios.post(
-        REGISTER_URL,
+        ApiUrlEnum.AuthRegister,
         JSON.stringify({
           username: formData.username,
           firstName: formData.firstName,

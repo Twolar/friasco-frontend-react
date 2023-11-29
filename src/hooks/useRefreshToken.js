@@ -1,4 +1,5 @@
 import axios from "../api/axios";
+import { ApiUrlEnum } from "../helpers/enums";
 import useAuth from "./useAuth";
 import { decodeToken } from "react-jwt";
 
@@ -6,7 +7,7 @@ const useRefreshToken = () => {
   const { auth, setAuth } = useAuth();
 
   const refresh = async () => {
-    const response = await axios.get("/Auth/Refresh", {
+    const response = await axios.get(ApiUrlEnum.AuthRefresh, {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     });

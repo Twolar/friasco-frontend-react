@@ -12,6 +12,7 @@ import { useEffect, useRef, useState } from "react";
 import { tokens } from "../theme";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { ApiUrlEnum } from "../helpers/enums";
 
 const ChangePasswordForm = () => {
   const theme = useTheme();
@@ -32,7 +33,7 @@ const ChangePasswordForm = () => {
   const handleFormSubmit = async (formData, { resetForm }) => {
     try {
       const response = await axiosPrivate.post(
-        `/auth/changepassword/${auth?.id}`,
+        ApiUrlEnum.AuthChangePassword + auth?.id,
         JSON.stringify({
           password: formData.password,
           newPassword: formData.newPassword,

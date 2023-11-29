@@ -1,4 +1,5 @@
 import axios from "../api/axios";
+import { ApiUrlEnum } from "../helpers/enums";
 import useAuth from "./useAuth";
 
 const useLogout = () => {
@@ -7,7 +8,7 @@ const useLogout = () => {
   const logout = async () => {
     try {
       setAuth({});
-      const response = await axios.get("/auth/logout", {
+      const response = await axios.get(ApiUrlEnum.AuthLogout, {
         withCredentials: true,
       });
     } catch (error) {
