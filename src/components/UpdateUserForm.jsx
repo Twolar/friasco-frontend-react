@@ -6,6 +6,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { tokens } from "../theme";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { ApiUrlEnum } from "../helpers/enums";
 
 const UpdateUserForm = () => {
   const theme = useTheme();
@@ -40,7 +41,7 @@ const UpdateUserForm = () => {
   const handleFormSubmit = async (formData) => {
     try {
       const response = await axiosPrivate.put(
-        `/users/${auth?.id}`,
+        ApiUrlEnum.Users + auth?.id,
         JSON.stringify({
           username: formData.username,
           firstName: formData.firstName,

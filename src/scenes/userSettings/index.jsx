@@ -11,7 +11,7 @@ const Settings = () => {
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header
           title="Settings"
-          subtitle={`Hi ${auth?.firstName}, welcome to your user settings!`}
+          subtitle={`Hi ${auth?.firstName}, you can manage your user settings below!`}
         ></Header>
       </Box>
 
