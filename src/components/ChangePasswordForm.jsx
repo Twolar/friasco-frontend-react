@@ -10,16 +10,18 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { useEffect, useRef, useState } from "react";
 import { tokens } from "../theme";
-import { axiosPrivate } from "../api/axios";
+import useAuth from "../hooks/useAuth";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
-const RESET_PW_URL = "/auth/resetpassword";
-
-const LoginForm = () => {
+const ChangePasswordForm = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const errRef = useRef();
+
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
 
   const [errMessage, setErrMessage] = useState(""); // TODO: change the messaging (snackbar?)
 
@@ -30,16 +32,12 @@ const LoginForm = () => {
   const handleFormSubmit = async (formData, { resetForm }) => {
     try {
       const response = await axiosPrivate.post(
-        RESET_PW_URL,
+        `/auth/changepassword/${auth?.id}`,
         JSON.stringify({
           password: formData.password,
           newPassword: formData.newPassword,
           confirmNewPassword: formData.confirmNewPassword
-        }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
+        })
       );
       setErrMessage("");
       resetForm();
@@ -167,4 +165,4 @@ const initialValues = {
   confirmNewPassword: ""
 };
 
-export default LoginForm;
+export default ChangePasswordForm;

@@ -1,9 +1,10 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import { tokens } from "../theme";
-import { Box, Typography, Tabs, Tab, useTheme } from "@mui/material";
+import { Box, Button, Typography, Tabs, Tab, useTheme } from "@mui/material";
 import ChangePasswordForm from "../components/ChangePasswordForm";
 import UpdateUserForm from "./UpdateUserForm";
+import useLogoutEverywhere from "../hooks/useLogoutEverywhere";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -42,9 +43,15 @@ export default function VerticalTabs() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [value, setValue] = React.useState(0);
+  const logoutEverywhere = useLogoutEverywhere();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+
+  const signOutEverywhere = async () => {
+    await logoutEverywhere();
+    navigate("/login");
   };
 
   return (
@@ -99,8 +106,15 @@ export default function VerticalTabs() {
             Manage your logins
           </Typography>
         </Box>
-        {/* TODO: */}
-        Logout Everywhere Button
+        <Box>
+          <Button
+            onClick={signOutEverywhere}
+            color="secondary"
+            variant="contained"
+          >
+            Logout me out everywhere
+          </Button>
+        </Box>
       </TabPanel>
     </Box>
   );
