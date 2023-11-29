@@ -1,72 +1,64 @@
-import {
-  Box,
-  Button,
-  TextField,
-  useMediaQuery,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
+import { useEffect, useRef, useState } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { useEffect, useRef, useState } from "react";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { tokens } from "../theme";
-import axios from "../api/axios";
-import { decodeToken } from "react-jwt";
 import useAuth from "../hooks/useAuth";
-import { useNavigate, useLocation } from "react-router-dom";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
-const LOGIN_URL = "/auth/login";
-
-const LoginForm = () => {
+const UpdateUserForm = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  const { setAuth, persist, setPersist } = useAuth();
-  const userRef = useRef();
+  const { auth, setAuth } = useAuth();
+  const axiosPrivate = useAxiosPrivate();
   const errRef = useRef();
 
-  const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/dashboard";
-
+  const [userDetails, setUserDetails] = useState({
+    username: auth?.username,
+    firstName: auth?.firstName,
+    lastName: auth?.lastName,
+    email: auth?.email,
+  });
   const [errMessage, setErrMessage] = useState(""); // TODO: change the messaging (snackbar?)
 
   useEffect(() => {
-    userRef.current.focus();
-  }, []);
+    setUserDetails({
+      username: auth?.username,
+      firstName: auth?.firstName,
+      lastName: auth?.lastName,
+      email: auth?.email,
+    });
+  }, [auth]);
 
   useEffect(() => {
     setErrMessage("");
   }, []);
 
-  const handleFormSubmit = async (formData, { resetForm }) => {
+  const handleFormSubmit = async (formData) => {
     try {
-      const response = await axios.post(
-        LOGIN_URL,
+      const response = await axiosPrivate.put(
+        `/users/${auth?.id}`,
         JSON.stringify({
-          Email: formData.email,
-          Password: formData.password,
-        }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
+          username: formData.username,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email
+        })
       );
 
-      var tokenClaims = decodeToken(response?.data?.token);
-
-      setAuth({
-        id: tokenClaims.nameid,
-        firstName: tokenClaims.given_name,
-        lastName: tokenClaims.family_name,
-        username: tokenClaims.unique_name,
-        email: tokenClaims.email,
-        role: tokenClaims.role,
-        token: response.data.token,
-      });
+      setAuth((prev) => {
+        return {
+          ...prev,
+          username: formData.username,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email
+        };
+      })
       setErrMessage("");
-      navigate(from, { replace: true });
     } catch (error) {
       if (!error?.response) {
         setErrMessage("No Server Response");
@@ -77,20 +69,12 @@ const LoginForm = () => {
           error?.response?.data?.Errors?.Exception[0] + " - Unauthorized"
         );
       } else {
-        setErrMessage("Login Failed");
+        setErrMessage("Update Failed");
       }
 
       errRef.current.focus();
     }
   };
-
-  const togglePersist = () => {
-    setPersist((prev) => !prev);
-  };
-
-  useEffect(() => {
-    localStorage.setItem("persist", persist);
-  }, [persist]);
 
   return (
     <Box width="100%">
@@ -109,7 +93,7 @@ const LoginForm = () => {
 
         <Formik
           onSubmit={handleFormSubmit}
-          initialValues={initialValues}
+          initialValues={userDetails}
           validationSchema={checkoutSchema}
         >
           {({
@@ -135,12 +119,37 @@ const LoginForm = () => {
                   fullWidth
                   variant="filled"
                   type="text"
+                  label="First Name"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.firstName}
+                  name="firstName"
+                  error={!!touched.firstName && !!errors.firstName}
+                  helperText={touched.firstName && errors.firstName}
+                  sx={{ gridColumn: "span 2" }}
+                />
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Last Name"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.lastName}
+                  name="lastName"
+                  error={!!touched.lastName && !!errors.lastName}
+                  helperText={touched.lastName && errors.lastName}
+                  sx={{ gridColumn: "span 2" }}
+                />
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
                   label="Email"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.email}
                   name="email"
-                  ref={userRef}
                   error={!!touched.email && !!errors.email}
                   helperText={touched.email && errors.email}
                   sx={{ gridColumn: "span 4" }}
@@ -148,32 +157,20 @@ const LoginForm = () => {
                 <TextField
                   fullWidth
                   variant="filled"
-                  type="password"
-                  label="Password"
+                  type="text"
+                  label="Username"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.password}
-                  name="password"
-                  error={!!touched.password && !!errors.password}
-                  helperText={touched.password && errors.password}
+                  value={values.username}
+                  name="username"
+                  error={!!touched.username && !!errors.username}
+                  helperText={touched.username && errors.username}
                   sx={{ gridColumn: "span 4" }}
                 />
-                <div
-                  className="persistCheck"
-                  style={{ display: "flex", alignItems: "center" }}
-                >
-                  <input
-                    type="checkbox"
-                    id="persist"
-                    onChange={togglePersist}
-                    checked={persist}
-                  />
-                  <label htmlFor="persist">Trust this device?</label>
-                </div>
               </Box>
               <Box display="flex" justifyContent="end" mt="20px">
                 <Button type="submit" color="secondary" variant="contained">
-                  SIGN IN
+                  UPDATE
                 </Button>
               </Box>
             </form>
@@ -185,13 +182,10 @@ const LoginForm = () => {
 };
 
 const checkoutSchema = yup.object().shape({
-  email: yup.string().email("invalid email address").required("required"),
-  password: yup.string().required("required"),
+  email: yup.string().email("invalid email").required("required"),
+  username: yup.string().required("required"),
+  firstName: yup.string().required("required"),
+  lastName: yup.string().required("required"),
 });
 
-const initialValues = {
-  email: "SuperAdminRole@example.com",
-  password: "Password123",
-};
-
-export default LoginForm;
+export default UpdateUserForm;

@@ -59,6 +59,7 @@ const RegisterForm = () => {
         role: tokenClaims.role,
         token: response.data.token,
       });
+      setErrMessage("");
       navigate(from, { replace: true });
     } catch (error) {
       if (!error?.response) {

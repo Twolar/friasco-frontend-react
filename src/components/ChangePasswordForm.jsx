@@ -41,6 +41,7 @@ const LoginForm = () => {
           withCredentials: true,
         }
       );
+      setErrMessage("");
       resetForm();
     } catch (error) {
       if (!error?.response) {
