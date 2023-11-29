@@ -2,8 +2,8 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { tokens } from "../theme";
 import { Box, Typography, Tabs, Tab, useTheme } from "@mui/material";
-import RegisterForm from "../components/RegisterForm";
-import ChangePasswordForm from "../components/ChangePasswordForm"
+import ChangePasswordForm from "../components/ChangePasswordForm";
+import UpdateUserForm from "./UpdateUserForm";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -53,7 +53,7 @@ export default function VerticalTabs() {
         flexGrow: 1,
         bgcolor: "none",
         display: "flex",
-        height: "auto",
+        height: "100%",
         "& .Mui-selected": {
           color: `${colors.greenAccent[400]} !important`,
         },
@@ -74,23 +74,33 @@ export default function VerticalTabs() {
         sx={{ borderRight: 1, borderColor: "divider" }}
       >
         <Tab label="My Details" {...a11yProps(0)} />
-        <Tab label="Security" {...a11yProps(1)} />
+        <Tab label="Password" {...a11yProps(1)} />
+        <Tab label="Logins" {...a11yProps(2)} />
       </Tabs>
       <TabPanel value={value} index={0}>
         <Box m="0px 0px 15px 0px">
           <Typography variant="h6" color={colors.grey[100]}>
-            Update your details:
+            Update your details
           </Typography>
         </Box>
-          <RegisterForm />
+        <UpdateUserForm />
       </TabPanel>
       <TabPanel value={value} index={1}>
-      <Box m="0px 0px 15px 0px">
+        <Box m="0px 0px 15px 0px">
           <Typography variant="h6" color={colors.grey[100]}>
             Change your password
           </Typography>
         </Box>
-          <ChangePasswordForm />
+        <ChangePasswordForm />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <Box m="0px 0px 15px 0px">
+          <Typography variant="h6" color={colors.grey[100]}>
+            Manage your logins
+          </Typography>
+        </Box>
+        {/* TODO: */}
+        Logout Everywhere Button
       </TabPanel>
     </Box>
   );
