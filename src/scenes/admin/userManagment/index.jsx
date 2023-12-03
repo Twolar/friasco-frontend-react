@@ -3,7 +3,7 @@ import Header from "../../../components/Header";
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-import { ApiUrlEnum } from "../../../helpers/enums";
+import { ApiUrlEnum, SceneRoutePathEnum } from "../../../helpers/enums";
 
 const Users = () => {
   const [users, setUsers] = useState();
@@ -23,7 +23,10 @@ const Users = () => {
         isMounted && setUsers(response.data);
       } catch (err) {
         console.error(err);
-        navigate("/login", { state: { from: location }, replace: true });
+        navigate(SceneRoutePathEnum.Login, {
+          state: { from: location },
+          replace: true,
+        });
       }
     };
 
@@ -38,10 +41,7 @@ const Users = () => {
   return (
     <Box m="0px 20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header
-          title="USER MANAGEMENT"
-          subtitle=""
-        ></Header>
+        <Header title="USER MANAGEMENT" subtitle=""></Header>
       </Box>
 
       <Box display="flex">

@@ -19,6 +19,7 @@ import PersistLogin from "./components/persistLogin";
 import Landing from "./scenes/landing";
 import Login from "./scenes/login";
 import Settings from "./scenes/userSettings";
+import { SceneRoutePathEnum } from "./helpers/enums";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -34,9 +35,12 @@ function App() {
             <Topbar />
             <Routes>
               {/* Public Routes */}
-              <Route path="/" element={<Landing />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/unauthorized" element={<Unauthorized />} />
+              <Route path={SceneRoutePathEnum.Default} element={<Landing />} />
+              <Route path={SceneRoutePathEnum.Login} element={<Login />} />
+              <Route
+                path={SceneRoutePathEnum.Unauthorized}
+                element={<Unauthorized />}
+              />
 
               <Route element={<PersistLogin />}>
                 {/* Private User Routes */}
@@ -46,9 +50,18 @@ function App() {
                   }
                 >
                   {/* User and above only routes go here */}
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/profile" element={<Profile />} />
-                  <Route path="/settings" element={<Settings />} />
+                  <Route
+                    path={SceneRoutePathEnum.Dashboard}
+                    element={<Dashboard />}
+                  />
+                  <Route
+                    path={SceneRoutePathEnum.Profile}
+                    element={<Profile />}
+                  />
+                  <Route
+                    path={SceneRoutePathEnum.Settings}
+                    element={<Settings />}
+                  />
                 </Route>
 
                 {/* Private Admin Routes */}
@@ -62,7 +75,7 @@ function App() {
                 >
                   {/* SuperAdmin only routes go here */}
                   <Route
-                    path="/admin/user-management"
+                    path={SceneRoutePathEnum.ADUsers}
                     element={<UserManagement />}
                   />
                 </Route>
