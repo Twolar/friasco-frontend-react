@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { AuthenticatedRolesArray } from "../../helpers/userRoleArrays";
 import useLogout from "../../hooks/useLogout";
+import { SceneRoutePathEnum } from "../../helpers/enums";
 
 const Topbar = () => {
   const theme = useTheme();
@@ -24,7 +25,7 @@ const Topbar = () => {
 
   const signOut = async () => {
     await logout();
-    navigate("/login");
+    navigate(SceneRoutePathEnum.Login);
   };
 
   const isLoggedIn =
@@ -49,7 +50,7 @@ const Topbar = () => {
           <Typography
             variant="h3"
             color={colors.grey[100]}
-            onClick={() => navigate("/", { replace: true })}
+            onClick={() => navigate(SceneRoutePathEnum.Default, { replace: true })}
             style={{ cursor: "pointer" }}
           >
             Friasco
@@ -71,7 +72,7 @@ const Topbar = () => {
             <IconButton>
               <NotificationsOutlinedIcon />
             </IconButton>
-            <IconButton onClick={() => navigate("/settings", { replace: true })}>
+            <IconButton onClick={() => navigate(SceneRoutePathEnum.Settings, { replace: true })}>
               <SettingsOutlinedIcon />
             </IconButton>
             <IconButton onClick={signOut}>
@@ -80,7 +81,7 @@ const Topbar = () => {
           </>
         ) : (
           <>
-            <IconButton onClick={() => navigate("/login", { replace: true })}>
+            <IconButton onClick={() => navigate(SceneRoutePathEnum.Login, { replace: true })}>
               <LoginOutlinedIcon />
             </IconButton>
           </>

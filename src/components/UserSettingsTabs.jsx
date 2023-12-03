@@ -5,6 +5,7 @@ import { Box, Button, Typography, Tabs, Tab, useTheme } from "@mui/material";
 import ChangePasswordForm from "../components/ChangePasswordForm";
 import UpdateUserForm from "./UpdateUserForm";
 import useLogoutEverywhere from "../hooks/useLogoutEverywhere";
+import { SceneRoutePathEnum } from "../helpers/enums";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -51,7 +52,7 @@ export default function VerticalTabs() {
 
   const signOutEverywhere = async () => {
     await logoutEverywhere();
-    navigate("/login");
+    navigate(SceneRoutePathEnum.Login);
   };
 
   return (

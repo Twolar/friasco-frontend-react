@@ -15,6 +15,12 @@ export const ApiUrlEnum = {
   Users: "/users/"
 }
 
-export const SceneRouteEnum = {
-
+export const SceneRoutePathEnum = {
+  Default: "/",
+  Login: "/login",
+  Dashboard: "/dashboard",
+  Profile: "/profile",
+  Settings: "/settings",
+  Unauthorized: "/unauthorized",
+  ADUsers: "/admin/user-management"
 }
