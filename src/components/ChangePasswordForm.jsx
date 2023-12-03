@@ -24,11 +24,18 @@ const ChangePasswordForm = () => {
   const axiosPrivate = useAxiosPrivate();
   const { auth } = useAuth();
 
-  const [errMessage, setErrMessage] = useState(""); // TODO: change the messaging (snackbar?)
+  const [formSubmissionInfo, setFormSubmissionInfo] = useState({}); // TODO: change the messaging (snackbar?)
 
   useEffect(() => {
-    setErrMessage("");
+    setFormMessage(false, "");
   }, []);
+
+  const setFormMessage = (isSuccess, message) => {
+    setFormSubmissionInfo({
+      isSuccess,
+      message,
+    });
+  };
 
   const handleFormSubmit = async (formData, { resetForm }) => {
     try {
@@ -37,22 +44,26 @@ const ChangePasswordForm = () => {
         JSON.stringify({
           password: formData.password,
           newPassword: formData.newPassword,
-          confirmNewPassword: formData.confirmNewPassword
+          confirmNewPassword: formData.confirmNewPassword,
         })
       );
-      setErrMessage("");
+      setFormMessage(true, "Form submission successful!");
       resetForm();
     } catch (error) {
       if (!error?.response) {
-        setErrMessage("No Server Response");
+        setFormMessage(false, "No Server Response");
       } else if (error?.response?.status === 400) {
-        setErrMessage(error?.response?.data?.Errors?.Exception[0]);
+        setFormMessage(false, error?.response?.data?.Errors?.Exception[0]);
       } else if (error?.response?.status === 401) {
-        setErrMessage(
+        setFormMessage(
+          false,
           error?.response?.data?.Errors?.Exception[0] + " - Unauthorized"
         );
       } else {
-        setErrMessage("Password Reset Failed");
+        setFormMessage(
+          false,
+          error?.response?.data?.Errors?.Exception[0] + "Password Reset Failed"
+        );
       }
 
       errRef.current.focus();
@@ -66,11 +77,15 @@ const ChangePasswordForm = () => {
           <Typography
             variant="p"
             ref={errRef}
-            className={errMessage ? "errorMessage" : "hidden"}
+            className={formSubmissionInfo.message ? "" : "hidden"}
             aria-live="assertive"
-            color={colors.redAccent[300]}
+            color={
+              formSubmissionInfo.isSuccess
+                ? colors.greenAccent[300]
+                : colors.redAccent[300]
+            }
           >
-            {errMessage}
+            {formSubmissionInfo.message}
           </Typography>
         </section>
 
@@ -133,8 +148,12 @@ const ChangePasswordForm = () => {
                   onChange={handleChange}
                   value={values.confirmNewPassword}
                   name="confirmNewPassword"
-                  error={!!touched.confirmNewPassword && !!errors.confirmNewPassword}
-                  helperText={touched.confirmNewPassword && errors.confirmNewPassword}
+                  error={
+                    !!touched.confirmNewPassword && !!errors.confirmNewPassword
+                  }
+                  helperText={
+                    touched.confirmNewPassword && errors.confirmNewPassword
+                  }
                   sx={{ gridColumn: "span 4" }}
                 />
               </Box>
@@ -155,15 +174,15 @@ const checkoutSchema = yup.object().shape({
   password: yup.string().required("required"),
   newPassword: yup.string().required("required"),
   confirmNewPassword: yup
-  .string()
-  .oneOf([yup.ref("newPassword"), null], "New passwords must match")
-  .required("required"),
+    .string()
+    .oneOf([yup.ref("newPassword"), null], "New passwords must match")
+    .required("required"),
 });
 
 const initialValues = {
   password: "",
   newPassword: "",
-  confirmNewPassword: ""
+  confirmNewPassword: "",
 };
 
 export default ChangePasswordForm;
