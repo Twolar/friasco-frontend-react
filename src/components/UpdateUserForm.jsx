@@ -23,7 +23,7 @@ const UpdateUserForm = () => {
     lastName: auth?.lastName,
     email: auth?.email,
   });
-  const [errMessage, setErrMessage] = useState(""); // TODO: change the messaging (snackbar?)
+  const [formSubmissionInfo, setFormSubmissionInfo] = useState({}); // TODO: change the messaging (snackbar?)
 
   useEffect(() => {
     setUserDetails({
@@ -35,8 +35,15 @@ const UpdateUserForm = () => {
   }, [auth]);
 
   useEffect(() => {
-    setErrMessage("");
+    setFormMessage(false, "");
   }, []);
+
+  const setFormMessage = (isSuccess, message) => {
+    setFormSubmissionInfo({
+      isSuccess,
+      message,
+    });
+  };
 
   const handleFormSubmit = async (formData) => {
     try {
@@ -46,7 +53,7 @@ const UpdateUserForm = () => {
           username: formData.username,
           firstName: formData.firstName,
           lastName: formData.lastName,
-          email: formData.email
+          email: formData.email,
         })
       );
 
@@ -56,21 +63,25 @@ const UpdateUserForm = () => {
           username: formData.username,
           firstName: formData.firstName,
           lastName: formData.lastName,
-          email: formData.email
+          email: formData.email,
         };
-      })
-      setErrMessage("");
+      });
+      setFormMessage(true, "Form submission successful!");
     } catch (error) {
       if (!error?.response) {
-        setErrMessage("No Server Response");
+        setFormMessage(false, "No Server Response");
       } else if (error?.response?.status === 400) {
-        setErrMessage(error?.response?.data?.Errors?.Exception[0]);
+        setFormMessage(false, error?.response?.data?.Errors?.Exception[0]);
       } else if (error?.response?.status === 401) {
-        setErrMessage(
+        setFormMessage(
+          false,
           error?.response?.data?.Errors?.Exception[0] + " - Unauthorized"
         );
       } else {
-        setErrMessage("Update Failed");
+        setFormMessage(
+          false,
+          error?.response?.data?.Errors?.Exception[0] + "Update Failed"
+        );
       }
 
       errRef.current.focus();
@@ -84,11 +95,15 @@ const UpdateUserForm = () => {
           <Typography
             variant="p"
             ref={errRef}
-            className={errMessage ? "errorMessage" : "hidden"}
+            className={formSubmissionInfo.message ? "" : "hidden"}
             aria-live="assertive"
-            color={colors.redAccent[300]}
+            color={
+              formSubmissionInfo.isSuccess
+                ? colors.greenAccent[300]
+                : colors.redAccent[300]
+            }
           >
-            {errMessage}
+            {formSubmissionInfo.message}
           </Typography>
         </section>
 

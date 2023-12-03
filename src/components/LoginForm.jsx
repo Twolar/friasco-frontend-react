@@ -29,15 +29,22 @@ const LoginForm = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/dashboard";
 
-  const [errMessage, setErrMessage] = useState(""); // TODO: change the messaging (snackbar?)
+  const [formSubmissionInfo, setFormSubmissionInfo] = useState({}); // TODO: change the messaging (snackbar?)
 
   useEffect(() => {
     userRef.current.focus();
   }, []);
 
   useEffect(() => {
-    setErrMessage("");
+    setFormMessage(false, "");
   }, []);
+
+  const setFormMessage = (isSuccess, message) => {
+    setFormSubmissionInfo({
+      isSuccess,
+      message,
+    });
+  };
 
   const handleFormSubmit = async (formData, { resetForm }) => {
     try {
@@ -64,19 +71,23 @@ const LoginForm = () => {
         role: tokenClaims.role,
         token: response.data.token,
       });
-      setErrMessage("");
+      setFormMessage(true, "");
       navigate(from, { replace: true });
     } catch (error) {
       if (!error?.response) {
-        setErrMessage("No Server Response");
+        setFormMessage(false, "No Server Response");
       } else if (error?.response?.status === 400) {
-        setErrMessage(error?.response?.data?.Errors?.Exception[0]);
+        setFormMessage(false, error?.response?.data?.Errors?.Exception[0]);
       } else if (error?.response?.status === 401) {
-        setErrMessage(
+        setFormMessage(
+          false,
           error?.response?.data?.Errors?.Exception[0] + " - Unauthorized"
         );
       } else {
-        setErrMessage("Login Failed");
+        setFormMessage(
+          false,
+          error?.response?.data?.Errors?.Exception[0] + "Login Failed"
+        );
       }
 
       errRef.current.focus();
@@ -98,11 +109,15 @@ const LoginForm = () => {
           <Typography
             variant="p"
             ref={errRef}
-            className={errMessage ? "errorMessage" : "hidden"}
+            className={formSubmissionInfo.message ? "" : "hidden"}
             aria-live="assertive"
-            color={colors.redAccent[300]}
+            color={
+              formSubmissionInfo.isSuccess
+                ? colors.greenAccent[300]
+                : colors.redAccent[300]
+            }
           >
-            {errMessage}
+            {formSubmissionInfo.message}
           </Typography>
         </section>
 
