@@ -14,3 +14,7 @@ export const ApiUrlEnum = {
   AuthLogoutAll: "/auth/logoutall/",
   Users: "/users/"
 }
+
+export const SceneRouteEnum = {
+
+}
