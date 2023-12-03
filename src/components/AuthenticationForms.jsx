@@ -24,11 +24,11 @@ const AuthenticationForms = () => {
       >
         {isLogin ? (
           <>
-            <p>No account, click here to sign up!</p>
+            <p>No account? Click here to sign up!</p>
           </>
         ) : (
           <>
-            <p>Have an account? Click here to login!</p>
+            <p>Already have an account? Click here to login!</p>
           </>
         )}
       </Typography>
