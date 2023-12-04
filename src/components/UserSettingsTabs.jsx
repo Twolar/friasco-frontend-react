@@ -113,7 +113,7 @@ export default function VerticalTabs() {
             color="secondary"
             variant="contained"
           >
-            Logout me out everywhere
+            Log me out everywhere
           </Button>
         </Box>
       </TabPanel>
