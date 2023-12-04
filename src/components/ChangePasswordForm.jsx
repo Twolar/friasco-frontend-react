@@ -62,7 +62,7 @@ const ChangePasswordForm = () => {
       } else {
         setFormMessage(
           false,
-          error?.response?.data?.Errors?.Exception[0] + "Password Reset Failed"
+          "Password Reset Failed"
         );
       }
 

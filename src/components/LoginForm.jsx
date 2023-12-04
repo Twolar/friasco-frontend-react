@@ -86,7 +86,7 @@ const LoginForm = () => {
       } else {
         setFormMessage(
           false,
-          error?.response?.data?.Errors?.Exception[0] + "Login Failed"
+          "Login Failed"
         );
       }
 
