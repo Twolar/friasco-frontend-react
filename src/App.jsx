@@ -20,6 +20,7 @@ import Landing from "./scenes/landing";
 import Login from "./scenes/login";
 import Settings from "./scenes/userSettings";
 import { SceneRoutePathEnum } from "./helpers/enums";
+import ForgottenPassword from "./scenes/forgottenPassword";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -37,6 +38,10 @@ function App() {
               {/* Public Routes */}
               <Route path={SceneRoutePathEnum.Default} element={<Landing />} />
               <Route path={SceneRoutePathEnum.Login} element={<Login />} />
+              <Route
+                path={SceneRoutePathEnum.ForgottenPassword}
+                element={<ForgottenPassword />}
+              />
               <Route
                 path={SceneRoutePathEnum.Unauthorized}
                 element={<Unauthorized />}
