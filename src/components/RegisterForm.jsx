@@ -80,7 +80,7 @@ const RegisterForm = () => {
       } else {
         setFormMessage(
           false,
-          error?.response?.data?.Errors?.Exception[0] + "Register Failed"
+          "Register Failed"
         );
       }
 

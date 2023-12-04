@@ -80,7 +80,7 @@ const UpdateUserForm = () => {
       } else {
         setFormMessage(
           false,
-          error?.response?.data?.Errors?.Exception[0] + "Update Failed"
+          "Update Failed"
         );
       }
 
