@@ -12,8 +12,9 @@ export const ApiUrlEnum = {
   AuthRefresh: "/auth/refresh/",
   AuthLogout: "/auth/logout/",
   AuthLogoutAll: "/auth/logoutall/",
-  Users: "/users/"
-}
+  AuthForgottenPassword: "/auth/forgottenpassword/",
+  Users: "/users/",
+};
 
 export const SceneRoutePathEnum = {
   Default: "/",
@@ -22,5 +23,6 @@ export const SceneRoutePathEnum = {
   Profile: "/profile",
   Settings: "/settings",
   Unauthorized: "/unauthorized",
-  ADUsers: "/admin/user-management"
-}
+  ForgottenPassword: "/forgottenpassword",
+  ADUsers: "/admin/user-management",
+};
