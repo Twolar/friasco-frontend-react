@@ -15,7 +15,7 @@
     "@fvilers/disable-react-devtools": "^1.3.0",
     "@mui/icons-material": "^5.14.16",
     "@mui/material": "^5.14.17",
-    "@mui/x-data-grid": "^6.18.0",
+    "@mui/x-data-grid": "^6.18.3",
     "axios": "^1.6.0",
     "formik": "^2.4.5",
     "react": "^18.2.0",
