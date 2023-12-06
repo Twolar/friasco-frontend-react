@@ -60,10 +60,7 @@ const ChangePasswordForm = () => {
           error?.response?.data?.Errors?.Exception[0] + " - Unauthorized"
         );
       } else {
-        setFormMessage(
-          false,
-          "Password Reset Failed"
-        );
+        setFormMessage(false, "Password Reset Failed");
       }
 
       errRef.current.focus();
@@ -71,7 +68,7 @@ const ChangePasswordForm = () => {
   };
 
   return (
-    <Box width="100%">
+    <Box width="100%" maxWidth="500px">
       <>
         <section>
           <Typography

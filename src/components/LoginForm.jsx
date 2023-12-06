@@ -84,10 +84,7 @@ const LoginForm = () => {
           error?.response?.data?.Errors?.Exception[0] + " - Unauthorized"
         );
       } else {
-        setFormMessage(
-          false,
-          "Login Failed"
-        );
+        setFormMessage(false, "Login Failed");
       }
 
       errRef.current.focus();
@@ -103,7 +100,7 @@ const LoginForm = () => {
   }, [persist]);
 
   return (
-    <Box width="100%">
+    <Box width="100%" maxWidth="500px">
       <>
         <section>
           <Typography
@@ -174,7 +171,11 @@ const LoginForm = () => {
                 />
                 <div
                   className="persistCheck"
-                  style={{ display: "flex", alignItems: "center" }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gridColumn: "span 4",
+                  }}
                 >
                   <input
                     type="checkbox"

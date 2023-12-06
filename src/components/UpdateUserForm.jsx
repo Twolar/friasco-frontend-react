@@ -78,10 +78,7 @@ const UpdateUserForm = () => {
           error?.response?.data?.Errors?.Exception[0] + " - Unauthorized"
         );
       } else {
-        setFormMessage(
-          false,
-          "Update Failed"
-        );
+        setFormMessage(false, "Update Failed");
       }
 
       errRef.current.focus();
@@ -89,7 +86,7 @@ const UpdateUserForm = () => {
   };
 
   return (
-    <Box width="100%">
+    <Box width="100%" maxWidth="500px">
       <>
         <section>
           <Typography

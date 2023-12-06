@@ -37,7 +37,7 @@ const AuthenticationForms = () => {
       </Typography>
       {isLogin ? (
         <>
-          <LoginForm />{" "}
+          <LoginForm />
           <Typography
             onClick={() => navigate(SceneRoutePathEnum.ForgottenPassword)}
             color={colors.greenAccent[400]}

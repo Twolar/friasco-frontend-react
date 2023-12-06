@@ -78,10 +78,7 @@ const RegisterForm = () => {
           error?.response?.data?.Errors?.Exception[0] + " - Unauthorized"
         );
       } else {
-        setFormMessage(
-          false,
-          "Register Failed"
-        );
+        setFormMessage(false, "Register Failed");
       }
 
       errRef.current.focus();
@@ -97,7 +94,7 @@ const RegisterForm = () => {
   }, [persist]);
 
   return (
-    <Box width="100%">
+    <Box width="100%" maxWidth="500px">
       <>
         <section>
           <Typography
@@ -219,7 +216,11 @@ const RegisterForm = () => {
                 />
                 <div
                   className="persistCheck"
-                  style={{ display: "flex", alignItems: "center" }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gridColumn: "span 2",
+                  }}
                 >
                   <input
                     type="checkbox"

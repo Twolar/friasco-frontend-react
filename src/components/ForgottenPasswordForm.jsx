@@ -72,7 +72,7 @@ const ForgottenPasswordForm = () => {
   };
 
   return (
-    <Box width="100%">
+    <Box width="100%" maxWidth="500px">
       <>
         <section>
           <Typography
