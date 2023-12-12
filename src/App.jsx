@@ -31,7 +31,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          {auth?.email ? <SideBar /> : <></>}
+          {auth?.email && <SideBar />}
           <main className="content">
             <Topbar />
             <Routes>

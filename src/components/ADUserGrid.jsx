@@ -95,7 +95,7 @@ const ADUserGrid = () => {
       },
     },
     {
-      field: "",
+      field: "actions",
       headerName: "Actions",
       renderCell: (params) => (
         <>
